@@ -1,0 +1,87 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Page</title>
+    <style>
+        /* CSS styles for the chat page */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container{
+            width:100%;
+            margin: auto;
+            display: flex;
+            justify-content:center;
+            height: 100%;
+            table-layout:fixed;
+        }
+        .sidebar {
+            width: 20%%;
+            background-color: #f2f2f2;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        {% comment %} .content {
+            display:flex;
+            justify-content:center;
+            margin-left: 200px;
+            padding: 20px;
+        } {% endcomment %}
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div class="container">
+    <div class="sidebar">
+        <h3>{{request.user.Name}}</h3>
+        <h2>Active Users </h2>
+        
+        <ul>
+            {% for user in users %}
+            <a href="{{user.id}}"><li>{{user.Name}}</li></a>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Chat Page : {{reciever_user.Name}}</h1>
+        <div class="chatmsg">
+        <div class="SenderSide">
+            {% for msg in sender %}
+            <ul>
+            {{msg.message}}
+            </ul>
+            {% endfor %}
+        </div>
+        <div class="recieverside">
+            {% for msg in reciver %}
+            <ul>
+            {{msg.message}}
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="send_msg">
+        <form method="post" action="{% url 'SendMessage' id=reciever_user.pk %}">
+            {% csrf_token %}
+            <textarea id="message" name="message" class="form-control"></textarea>
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+    </div>
+    </div>
+
+</div>
+    {% else%}
+    <h1>User is not authenticated</h2>
+    {% endif %}
+
+</body>
+</html>
