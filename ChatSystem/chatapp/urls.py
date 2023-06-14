@@ -8,5 +8,6 @@ urlpatterns = [
     path("login", views.login_request, name="login"),
     path("chat/",views.Chat_Message,name="chatpage"),
     path("chat/<pk>",views.Chat_show,name="ChatShow"),
-    path("send_message/<id>",views.Send_message,name="SendMessage")
+    path("send_message/<id>",views.Send_message,name="SendMessage"),
+    path("/logout",views.logout_view,name="logout_view")
 ]

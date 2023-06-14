@@ -1,6 +1,7 @@
-{% load bootstrap5 %}
+{% comment %} {% load bootstrap5 %}
 {% bootstrap_css %}
-{% bootstrap_javascript %}
+{% bootstrap_javascript %} {% endcomment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,9 +47,11 @@
         <h2>Active Users </h2>
         
         <ul>
+            {% if users|length > 0 %}
             {% for user in users %}
             <a href="{{user.id}}"><li>{{user.Name}}</li></a>
             {% endfor %}
+            {% endif %}
         </ul>
     </div>
     <div class="content">
@@ -69,6 +72,7 @@
             {% endfor %}
         </div>
     </div>
+    {% if users|length > 0 %}
     <div class="send_msg">
         <form method="post" action="{% url 'SendMessage' id=reciever_user.pk %}">
             {% csrf_token %}
@@ -76,12 +80,18 @@
             <button class="btn btn-primary" type="submit">Send</button>
         </form>
     </div>
+    {% endif %}
     </div>
-
+    {% if user.is_authenticated %}
+    <div class="logout_btn btn">
+        <a href="{% url 'logout_view' %}">Logout</a>
+    <div>
+    {% endif %}
 </div>
-    {% else%}
+    {% else %}
     <h1>User is not authenticated</h2>
     {% endif %}
+
 
 </body>
 </html>

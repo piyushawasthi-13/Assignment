@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,11 +88,11 @@ WSGI_APPLICATION = "ChatSystem.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'NAME': "ChatSystem",
+        'USER': "admin",
+        'PASSWORD': "l8FNQ4o1L1",
+        'HOST': "database-1.cltl3clzfrfy.ap-south-1.rds.amazonaws.com",
+        'PORT': "3306",
     }
 }
 # Password validation

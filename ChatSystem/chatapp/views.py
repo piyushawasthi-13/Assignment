@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from .models import User,Chat
 from django.urls import reverse
+from django.contrib.auth import logout
 
 
 # user register function
@@ -62,8 +63,9 @@ def Chat_Message(request):
     if request.user.is_authenticated:
         user=User.objects.filter(id=request.user.pk).first()
         active_user=User.objects.all().exclude(id=user.id)
+        print("activeuserr",request.user)
         return render(request,'chat.html',context={
-            'users':active_user})
+            'users':active_user,'reciever_user':user})
     else:
         return redirect("login")
 
@@ -94,3 +96,7 @@ def Send_message(request,id):
     else:
         return redirect("login")
     
+    
+def logout_view(request):
+    logout(request)
+    return redirect("login")
